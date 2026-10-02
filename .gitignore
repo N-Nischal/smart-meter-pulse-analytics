@@ -1,0 +1,11 @@
+# Compiled executables
+smart_meter
+*_test
+
+# Generated log/data files
+energy_log.txt
+logs/
+data/
+
+# Temporary files
+*.o
