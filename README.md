@@ -620,3 +620,22 @@ The final implementation includes:
 - Six-stage documentation
 
 
+## Author
+
+**N. Nischal**
+
+B.Tech — Computer Science & Engineering  
+ITER, Siksha 'O' Anusandhan
+
+---
+
+## Conclusion
+
+The Smart Energy Smart-Meter Pulse Counter & Analytics Agent provides a simple software-based simulation of a smart electricity meter using C++ on Linux.
+
+The system demonstrates pulse counting, energy conversion, average power calculation, cost estimation, usage classification, energy analytics, data logging, modular programming, unit testing, and automated build execution.
+
+The project was developed through a structured six-stage process covering project introduction, requirements, system design, prototype development, testing and improvement, and final implementation.
+
+The completed application provides a working foundation that can be extended in the future with physical sensors, device interfaces, real-time monitoring, cloud connectivity, and more advanced analytics.
+
