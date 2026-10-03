@@ -12,10 +12,9 @@ The project demonstrates concepts from:
 - Linux System Programming
 - File I/O
 - Object-Oriented Programming
-- IoT and Virtual Sensors
 - Modular Software Design
 - Unit Testing
-- Git and GitHub
+- Bash Scripting
 - Software Development Life Cycle
 
 ---
@@ -53,7 +52,7 @@ flowchart TD
 
 | Component | Responsibility |
 |---|---|
-| PulseCounter | Handles meter pulse information |
+| PulseCounter | Handles virtual meter pulse information |
 | EnergyCalculator | Converts pulses into energy and calculates power/cost |
 | AnalyticsEngine | Processes energy readings and calculates statistics |
 | DataLogger | Stores readings in the log file |
@@ -93,9 +92,7 @@ sequenceDiagram
 
 The project uses a virtual meter conversion factor:
 
-```text
-1 pulse = 0.001 kWh
-```
+**1 pulse = 0.001 kWh**
 
 ### Energy
 
@@ -123,7 +120,7 @@ Example:
 
 ### Estimated Cost
 
-The project uses an assumed tariff of:
+The project uses an assumed electricity tariff of:
 
 ```text
 ₹8 per kWh
@@ -197,18 +194,13 @@ smart-meter-pulse-analytics/
 │   ├── stage3_design.md
 │   ├── stage4_prototype.md
 │   ├── stage5_testing.md
-│   ├── stage6_final_report.md
-│   ├── PRD.md
-│   └── development_plan.md
+│   └── stage6_final_report.md
 │
 ├── include/
 │   ├── analytics.h
 │   ├── data_logger.h
 │   ├── energy_calculator.h
 │   └── pulse_counter.h
-│
-├── requirements/
-│   └── functional_requirements.md
 │
 ├── scripts/
 │   └── run.sh
@@ -235,8 +227,6 @@ smart-meter-pulse-analytics/
 - **Standard:** C++11
 - **Operating System:** Ubuntu/Linux
 - **Compiler:** g++
-- **Version Control:** Git
-- **Repository:** GitHub
 - **Testing:** C++ unit-test programs
 - **Shell:** Bash
 
@@ -249,7 +239,6 @@ The project requires:
 - Ubuntu/Linux
 - GNU g++
 - C++11 support
-- Git
 - Bash
 
 Check the compiler:
@@ -258,27 +247,49 @@ Check the compiler:
 g++ --version
 ```
 
-Check Git:
+---
 
-```bash
-git --version
-```
+# Step-by-Step: How to Run the Project
+
+This section explains how to run the project from the beginning.
+
+## Step 1 — Open the Terminal
+
+Open a terminal in Ubuntu/Linux.
 
 ---
 
-## Build the Project
+## Step 2 — Clone the Project
 
-Clone the repository:
+Clone the GitHub repository:
 
 ```bash
 git clone https://github.com/N-Nischal/smart-meter-pulse-analytics.git
 ```
 
-Enter the project:
+---
+
+## Step 3 — Enter the Project Directory
 
 ```bash
 cd smart-meter-pulse-analytics
 ```
+
+---
+
+## Step 4 — Check the Project Files
+
+You can check the project structure using:
+
+```bash
+find . -maxdepth 3 -type f | sort
+```
+
+You should see the source files, header files, tests, documentation, and build script.
+
+---
+
+## Step 5 — Build the Project
 
 Run the build script:
 
@@ -286,17 +297,61 @@ Run the build script:
 ./scripts/run.sh
 ```
 
-The script compiles the main application and all test programs.
+The script compiles:
+
+- The main smart-meter application
+- Pulse Counter test
+- Energy Calculator test
+- Analytics test
+- Data Logger test
+
+If the build is successful, you will see:
+
+```text
+Build completed successfully.
+```
 
 ---
 
-## Run the Smart Meter
+## Step 6 — Run the Smart Meter
 
-After compilation:
+Start the application:
 
 ```bash
 ./smart_meter
 ```
+
+The program will ask for:
+
+```text
+Enter pulse count:
+Enter measurement time (hours):
+```
+
+Enter the required values.
+
+For example:
+
+```text
+Enter pulse count: 300
+Enter measurement time (hours): 2
+```
+
+---
+
+## Step 7 — View the Results
+
+The application calculates and displays:
+
+- Pulse count
+- Energy consumed
+- Measurement time
+- Average power
+- Electricity tariff
+- Estimated cost
+- Usage status
+- Log file location
+- Reading status
 
 Example:
 
@@ -328,11 +383,41 @@ Meter Status      : RUNNING
 
 ---
 
-## Testing
+## Step 8 — Check the Logged Reading
 
-The project contains separate tests for the main modules.
+The meter reading is stored in:
 
-### Pulse Counter
+```text
+logs/meter.log
+```
+
+To view the file:
+
+```bash
+cat logs/meter.log
+```
+
+You can also display the latest entries:
+
+```bash
+tail -n 5 logs/meter.log
+```
+
+Example:
+
+```text
+300,0.3
+600,0.6
+900,0.9
+```
+
+---
+
+## Step 9 — Run the Unit Tests
+
+After building the project, run the individual tests.
+
+### Pulse Counter Test
 
 ```bash
 ./pulse_counter_test
@@ -344,7 +429,7 @@ Expected:
 PulseCounter test passed
 ```
 
-### Energy Calculator
+### Energy Calculator Test
 
 ```bash
 ./energy_calculator_test
@@ -356,7 +441,7 @@ Expected:
 EnergyCalculator test passed
 ```
 
-### Analytics
+### Analytics Test
 
 ```bash
 ./analytics_test
@@ -369,7 +454,7 @@ Total Energy: 46
 Average Energy: 15.3333
 ```
 
-### Data Logger
+### Data Logger Test
 
 ```bash
 ./data_logger_test
@@ -380,6 +465,38 @@ Expected:
 ```text
 DataLogger test passed
 ```
+
+---
+
+## Step 10 — Complete Basic Verification
+
+A simple complete verification sequence is:
+
+```bash
+./scripts/run.sh
+./pulse_counter_test
+./energy_calculator_test
+./analytics_test
+./data_logger_test
+./smart_meter
+```
+
+This builds the project, executes the unit tests, and finally starts the smart-meter application.
+
+---
+
+## Testing
+
+The project contains separate tests for the main modules:
+
+| Module | Test Program | Result |
+|---|---|---|
+| PulseCounter | `pulse_counter_test` | Passed |
+| EnergyCalculator | `energy_calculator_test` | Passed |
+| AnalyticsEngine | `analytics_test` | Passed |
+| DataLogger | `data_logger_test` | Passed |
+
+The tests verify the basic functionality of the individual modules before and during integration.
 
 ---
 
@@ -402,11 +519,11 @@ Project idea, problem statement, scope, objectives, expected outcome, and applic
 
 ### Stage 2 — Requirements & Development Plan
 
-Functional requirements, non-functional requirements, PRD, modules, features, deliverables, and development timeline.
+Functional requirements, non-functional requirements, modules, features, deliverables, and development planning.
 
 ### Stage 3 — System Design & Architecture
 
-System architecture, components, data structures, UML/design documentation, implementation plan, development environment, and Git strategy.
+System architecture, components, data structures, UML/design documentation, implementation plan, and development environment.
 
 ### Stage 4 — Initial Implementation & Prototype
 
@@ -434,43 +551,8 @@ The project demonstrates:
 - Executable generation
 - Modular source-code organization
 - Process execution
-- Git-based version control
 
 The current implementation is a **user-space Linux application** and does not contain a Linux kernel device driver or physical meter hardware.
-
----
-
-## IoT / Virtual Sensor Relevance
-
-The project represents a simplified smart-meter IoT pipeline:
-
-```mermaid
-flowchart LR
-    A[Virtual Meter / Pulse Source] --> B[Data Acquisition]
-    B --> C[Energy Processing]
-    C --> D[Analytics]
-    D --> E[Cost & Usage Information]
-    E --> F[Stored Meter Data]
-```
-
-A future hardware implementation could replace the virtual pulse input with a real sensor or device interface.
-
----
-
-## Git and Version Control
-
-Git is used to track project development throughout the six stages.
-
-Example commands:
-
-```bash
-git status
-git add .
-git commit -m "Commit message"
-git push origin main
-```
-
-The repository maintains the project source code, documentation, testing files, and development history.
 
 ---
 
@@ -478,9 +560,10 @@ The repository maintains the project source code, documentation, testing files, 
 
 - The meter input is simulated rather than obtained from physical hardware.
 - No physical energy sensor is connected.
-- The electricity tariff is a configurable assumption.
+- The electricity tariff is an assumed value.
 - Data is stored locally rather than in a cloud platform.
 - The current implementation does not contain a Linux kernel device driver.
+- The current analytics functionality provides basic energy statistics.
 
 ---
 
@@ -491,7 +574,7 @@ Possible future extensions include:
 - Real energy sensor integration
 - Linux device-driver interface
 - Serial/USB communication
-- MQTT-based IoT communication
+- MQTT-based communication
 - Cloud data storage
 - Real-time monitoring dashboard
 - Database integration
@@ -514,22 +597,7 @@ Stage 5 → Testing, Integration & Improvement
 Stage 6 → Final Implementation & Presentation
 ```
 
-Additional documents include:
-
-- Project Requirements Document (PRD)
-- Development Plan
-- Functional Requirements
-- Stage-wise project documentation
-
----
-
-## Author
-
-**N. Nischal**
-
-B.Tech — Computer Science & Engineering
-
-ITER, Siksha 'O' Anusandhan
+Each stage contains the corresponding project documentation and development information.
 
 ---
 
@@ -540,15 +608,15 @@ ITER, Siksha 'O' Anusandhan
 The final implementation includes:
 
 - Working smart-meter simulation
+- Pulse counting
 - Energy calculation
-- Power calculation
+- Average power calculation
 - Cost estimation
-- Usage analytics
+- Usage classification
+- Energy analytics
 - Data logging
 - Unit tests
 - Automated build script
 - Six-stage documentation
-- Git version control
-- GitHub repository
 
-The project is ready for demonstration and presentation.
+
