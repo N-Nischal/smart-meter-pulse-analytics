@@ -23,87 +23,44 @@ The system accepts a pulse count and measurement time, processes the pulses, cal
 
 ## System Architecture
 
-```text
-+----------------------+
-|      User Input      |
-| Pulse Count + Time   |
-+----------+-----------+
-           |
-           v
-+----------------------+
-|   Pulse Generator    |
-+----------+-----------+
-           |
-           v
-+----------------------+
-|   Device Driver      |
-|    Abstraction       |
-+----------+-----------+
-           |
-           v
-+----------------------+
-|    Pulse Counter     |
-+----------+-----------+
-           |
-           v
-+----------------------+
-|  Energy Calculator   |
-+----------+-----------+
-           |
-           v
-+----------------------+
-|   Analytics Engine   |
-+----------+-----------+
-           |
-           +----------> Usage Status
-           |
-           v
-+----------------------+
-|     Data Logger      |
-+----------+-----------+
-           |
-           v
-     logs/meter.log
+```mermaid
+flowchart TD
+    A[User Input<br/>Pulse Count + Measurement Time] --> B[Input Validation]
+    B --> C[Pulse Generator]
+    C --> D[Device Driver<br/>User-Space Abstraction]
+    D --> E[Pulse Counter]
+    E --> F[Energy Calculator]
+    F --> G[Analytics Engine]
+
+    G --> H[Average Power]
+    G --> I[Estimated Cost]
+    G --> J[Usage Status]
+
+    G --> K[Data Logger]
+    K --> L[(logs/meter.log)]
+    G --> M[Console Output]
 ```
 
-> The Device Driver in this project is a **user-space abstraction** for simulation. It is not a Linux kernel driver.
+> **Note:** The Device Driver is a user-space abstraction used for simulation. It is not a Linux kernel driver.
 
 ---
 
 ## Data Flow
 
-```text
-User Input
-    |
-    v
-Input Validation
-    |
-    v
-Virtual Pulse Generation
-    |
-    v
-DeviceDriver
-    |
-    v
-Pulse Counter
-    |
-    v
-Energy Calculation
-    |
-    +----> Average Power
-    |
-    +----> Estimated Cost
-    |
-    +----> Usage Status
-    |
-    v
-Analytics
-    |
-    v
-Data Logging
-    |
-    v
-Console Output
+```mermaid
+flowchart LR
+    A[Pulse Count<br/>+ Time] --> B[Validate Input]
+    B --> C[Generate Virtual Pulses]
+    C --> D[Process Pulses]
+    D --> E[Count Pulses]
+    E --> F[Calculate Energy]
+    F --> G[Calculate Power]
+    G --> H[Calculate Cost]
+    H --> I[Classify Usage]
+    I --> J[Analytics]
+    J --> K[Save Reading]
+    K --> L[logs/meter.log]
+    J --> M[Display Result]
 ```
 
 ---
@@ -233,7 +190,7 @@ cd smart-meter-pulse-analytics
 ./scripts/run.sh
 ```
 
-The script compiles the main application and the individual test programs using:
+The script compiles the main application and individual test programs using:
 
 ```text
 -std=c++11
