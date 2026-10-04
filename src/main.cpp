@@ -4,6 +4,8 @@
 #include "energy_calculator.h"
 #include "analytics.h"
 #include "data_logger.h"
+#include "pulse_generator.h"
+#include "device_driver.h"
 #include <string>
 
 int main()
@@ -18,19 +20,36 @@ int main()
     std::cout << "========================================" << std::endl;
 
     std::cout << "\nStarting meter simulation..." << std::endl;
-
     std::cout << "\nEnter pulse count: ";
     std::cin >> pulses;
+
+    if (std::cin.fail() || pulses < 0)
+{
+    std::cout << "Invalid pulse count." << std::endl;
+    return 1;
+}
 
     std::cout << "Enter measurement time (hours): ";
     std::cin >> measurementTime;
 
-    for (int i = 0; i < pulses; i++)
-    {
-        counter.addPulse();
-    }
+    if (std::cin.fail() || measurementTime <= 0)
+{
+    std::cout << "Invalid measurement time." << std::endl;
+    return 1;
+}
+    DeviceDriver driver;
+    PulseGenerator generator;
 
-    int pulseCount = counter.getPulseCount();
+    generator.generatePulses(pulses, driver);
+
+    int generatedPulses = driver.readPulseCount();
+
+    for (int i = 0; i < generatedPulses; i++)
+{
+    counter.addPulse();
+}
+
+int pulseCount = counter.getPulseCount();
 
     EnergyCalculator calculator(0.001);
     double energy = calculator.calculateEnergy(pulseCount);

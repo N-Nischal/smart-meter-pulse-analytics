@@ -5,7 +5,7 @@ int main()
 {
     AnalyticsEngine analytics;
 
-    analytics.addEnergyReading(10.5);
+    analytics.addEnergyReading(30.5);
     analytics.addEnergyReading(20.0);
     analytics.addEnergyReading(15.5);
 
