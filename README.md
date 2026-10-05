@@ -291,12 +291,6 @@ Detailed documentation for each stage is available in the `docs/` directory.
 - Cloud-based monitoring.
 - Configurable electricity tariffs.
 
----
-
-## Repository
-
-**GitHub:**  
-https://github.com/N-Nischal/smart-meter-pulse-analytics
 
 ---
 
